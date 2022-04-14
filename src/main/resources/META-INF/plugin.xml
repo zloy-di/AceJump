@@ -23,8 +23,6 @@
                          implementationClass="org.acejump.action.AceEditorAction$Reset"/>
     <editorActionHandler action="EditorBackSpace" order="first"
                          implementationClass="org.acejump.action.AceEditorAction$ClearSearch"/>
-    <editorActionHandler action="EditorStartNewLine" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SelectBackward"/>
     <editorActionHandler action="EditorEnter" order="first"
                          implementationClass="org.acejump.action.AceEditorAction$SelectForward"/>
     <editorActionHandler action="EditorTab" order="first"
@@ -32,15 +30,15 @@
     <editorActionHandler action="EditorUnindentSelection" order="first"
                          implementationClass="org.acejump.action.AceEditorAction$ScrollToPreviousScreenful"/>
     <editorActionHandler action="EditorUp" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SearchLineStarts"/>
+                         implementationClass="org.acejump.action.AceEditorAction$SearchWordStart"/>
+    <editorActionHandler action="EditorDown" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineIndents"/>
+    <editorActionHandler action="EditorDownWithSelection" order="first"
+                         implementationClass="org.acejump.action.AceEditorAction$SearchLineEnds"/>
     <editorActionHandler action="EditorLeft" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SearchLineIndents"/>
-    <editorActionHandler action="EditorLineStart" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SearchLineIndents"/>
+                         implementationClass="org.acejump.action.AceEditorAction$SelectBackward"/>
     <editorActionHandler action="EditorRight" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SearchLineEnds"/>
-    <editorActionHandler action="EditorLineEnd" order="first"
-                         implementationClass="org.acejump.action.AceEditorAction$SearchLineEnds"/>
+                         implementationClass="org.acejump.action.AceEditorAction$SelectForward"/>
 
   </extensions>
 
@@ -99,8 +97,37 @@
     <action id="AceWordForwardAction"
             class="org.acejump.action.AceAction$StartAllWordsForwardMode"
             text="Start AceJump in All Words After Caret Mode"/>
-    <action id="AceWordBackwardsAction"
-            class="org.acejump.action.AceAction$StartAllWordsBackwardsMode"
-            text="Start AceJump in All Words Before Caret Mode"/>
+    <action id="AceBracesAction"
+            class="org.acejump.action.AceAction$StartAllBracesMode"
+            text="Start AceJump in {,} Mode"/>
+    <action id="AceBracketsAction"
+            class="org.acejump.action.AceAction$StartAllBracketsMode"
+            text="Start AceJump in [,] Mode"/>
+    <action id="AceParenthesisAction"
+            class="org.acejump.action.AceAction$StartAllParenthesisMode"
+            text="Start AceJump in (,) Mode"/>
+    <action id="AceTrianglesAction"
+            class="org.acejump.action.AceAction$StartAllTriangleMode"
+            text="Start AceJump in Triangles Mode"/>
+    <action id="AceQuotesAction"
+            class="org.acejump.action.AceAction$StartAllQuotesMode"
+            text="Start AceJump in ' Mode"/>
+    <action id="AceAllSurroundAction"
+            class="org.acejump.action.AceAction$StartAllSurroundMode"
+            text="Start AceJump in All Surround Mode"/>
+<!--    <action id="AceNextTagAction"-->
+<!--            class="org.acejump.action.AceAction$SelectNextTag"-->
+<!--            text="Selects Next Tag">-->
+<!--      <keyboard-shortcut keymap="Mac OS X" first-keystroke="ENTER"/>-->
+<!--      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ENTER"/>-->
+<!--      <keyboard-shortcut keymap="$default" first-keystroke="ENTER"/>-->
+<!--    </action>-->
+<!--    <action id="AcePreviousTagAction"-->
+<!--            class="org.acejump.action.AceAction$SelectPreviousTag"-->
+<!--            text="Selects Previous Tag">-->
+<!--      <keyboard-shortcut keymap="Mac OS X" first-keystroke="shift ENTER"/>-->
+<!--      <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="shift ENTER"/>-->
+<!--      <keyboard-shortcut keymap="$default" first-keystroke="shift ENTER"/>-->
+<!--    </action>-->
   </actions>
 </idea-plugin>

@@ -78,6 +78,15 @@ sealed class AceAction: DumbAwareAction() {
     override fun invoke(session: Session) = session.cyclePreviousJumpMode()
   }
 
+//  class SelectNextTag : AceAction(){
+//    override fun invoke(session: Session) = session.visitNextTag()
+//  }
+//
+//  class SelectPreviousTag : AceAction(){
+//    override fun invoke(session: Session) = session.visitPreviousTag()
+//  }
+
+
   // @formatter:off
 
   // Unbounded Toggle Modes
@@ -98,6 +107,12 @@ sealed class AceAction: DumbAwareAction() {
   class StartAllLineEndsMode       : BaseRegexSearchAction(LINE_ENDS, WHOLE_FILE)
   class StartAllLineIndentsMode    : BaseRegexSearchAction(LINE_INDENTS, WHOLE_FILE)
   class StartAllLineMarksMode      : BaseRegexSearchAction(LINE_ALL_MARKS, WHOLE_FILE)
+  class StartAllParenthesisMode    : BaseRegexSearchAction(PARENTHESIS, WHOLE_FILE)
+  class StartAllBracesMode         : BaseRegexSearchAction(BRACES, WHOLE_FILE)
+  class StartAllBracketsMode       : BaseRegexSearchAction(BRACKETS, WHOLE_FILE)
+  class StartAllQuotesMode         : BaseRegexSearchAction(QUOTES, WHOLE_FILE)
+  class StartAllTriangleMode       : BaseRegexSearchAction(TRIANGLES, WHOLE_FILE)
+  class StartAllSurroundMode       : BaseRegexSearchAction(ALL_SURROUNDINGS, WHOLE_FILE)
 
   // @formatter:on
 }

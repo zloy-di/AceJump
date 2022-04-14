@@ -52,15 +52,19 @@ sealed class AceEditorAction(private val originalHandler: EditorActionHandler): 
     override fun run(session: Session) { session.scrollToPreviousScreenful() }
   }
 
-  class SearchLineStarts(originalHandler: EditorActionHandler): AceEditorAction(originalHandler) {
-    override fun run(session: Session) = session.startRegexSearch(LINE_STARTS, WHOLE_FILE)
-  }
-
   class SearchLineEnds(originalHandler: EditorActionHandler): AceEditorAction(originalHandler) {
     override fun run(session: Session) = session.startRegexSearch(LINE_ENDS, WHOLE_FILE)
   }
 
   class SearchLineIndents(originalHandler: EditorActionHandler): AceEditorAction(originalHandler) {
     override fun run(session: Session) = session.startRegexSearch(LINE_INDENTS, WHOLE_FILE)
+  }
+
+  class SearchWordStart(originalHandler: EditorActionHandler): AceEditorAction(originalHandler) {
+    override fun run(session: Session) = session.startRegexSearch(ALL_WORDS, WHOLE_FILE)
+  }
+
+  class SearchWordEnd(originalHandler: EditorActionHandler): AceEditorAction(originalHandler) {
+    override fun run(session: Session) = session.startRegexSearch(ALL_WORDS, WHOLE_FILE)
   }
 }

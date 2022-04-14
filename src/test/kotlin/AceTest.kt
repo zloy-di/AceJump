@@ -1,5 +1,4 @@
-import com.intellij.openapi.actionSystem.IdeActions.ACTION_EDITOR_ENTER
-import com.intellij.openapi.actionSystem.IdeActions.ACTION_EDITOR_START_NEW_LINE
+import com.intellij.openapi.actionSystem.IdeActions.*
 import com.intellij.openapi.editor.actions.EnterAction
 import org.acejump.action.AceAction
 import org.acejump.config.AceConfig
@@ -33,7 +32,7 @@ class AceTest : BaseTest() {
   fun `test that jumping to first occurrence succeeds`() {
     "<caret>testing 1234".search("1")
 
-    takeAction(ACTION_EDITOR_ENTER)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
 
     myFixture.checkResult("testing <caret>1234")
   }
@@ -41,7 +40,7 @@ class AceTest : BaseTest() {
   fun `test that jumping to second occurrence succeeds`() {
     "<caret>testing 1234".search("ti")
 
-    takeAction(ACTION_EDITOR_ENTER)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
 
     myFixture.checkResult("tes<caret>ting 1234")
   }
@@ -49,7 +48,7 @@ class AceTest : BaseTest() {
   fun `test that jumping to previous occurrence succeeds`() {
     "te<caret>sting 1234".search("t")
 
-    takeAction(ACTION_EDITOR_START_NEW_LINE)
+    takeAction(ACTION_EDITOR_MOVE_CARET_LEFT)
 
     myFixture.checkResult("<caret>testing 1234")
   }
@@ -126,6 +125,93 @@ class AceTest : BaseTest() {
     takeAction(AceAction.StartAllLineMarksMode())
 
     assertEquals(9, session.tags.size)
+  }
+
+  fun `test braces mode`() {
+    makeEditor("""
+      fun `test line mode`() {
+        makeEditor("    test\n    three\n    lines")
+    
+        <caret>takeAction(AceAction.StartAllLineMarksMode())
+    
+        assertEquals(9, session.tags.size)
+      }
+    """)
+
+    takeAction(AceAction.StartAllBracesMode())
+    assertEquals(2, session.tags.size)
+    takeAction(ACTION_EDITOR_MOVE_CARET_LEFT)
+
+    myFixture.checkResult("""
+      fun `test line mode`() <caret>{
+        makeEditor("    test\n    three\n    lines")
+    
+        takeAction(AceAction.StartAllLineMarksMode())
+    
+        assertEquals(9, session.tags.size)
+      }
+    """)
+  }
+
+  fun `test brackets mode`() {
+    makeEditor("""
+      fun `test line mode`[]() {
+        makeEditor("    test\n    three\n    lines")
+    
+        <caret>takeAction(AceAction.StartAllLineMarksMode())
+    
+        assertEquals([9, session.tags.size])
+      }
+    """)
+
+    takeAction(AceAction.StartAllBracketsMode())
+    assertEquals(4, session.tags.size)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
+
+    myFixture.checkResult("""
+      fun `test line mode`[]() {
+        makeEditor("    test\n    three\n    lines")
+    
+        takeAction(AceAction.StartAllLineMarksMode())
+    
+        assertEquals([9, session.tags.size<caret>])
+      }
+    """)
+  }
+
+  fun `test quotes mode`() {
+    makeEditor("""
+      fun `test line mode`[]() {
+        makeEditor("    test\n    three\n    lines")
+    
+        takeAction(AceAction.StartAllLineMarksMode())
+        "this line <caret>is sap'le de'du"
+        assertEquals([9, session.tags.size])
+      }
+    """)
+
+    takeAction(AceAction.StartAllQuotesMode())
+    assertEquals(6, session.tags.size)
+    takeAction(ACTION_EDITOR_MOVE_CARET_LEFT)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
+    takeAction(ACTION_EDITOR_MOVE_CARET_RIGHT)
+
+    myFixture.checkResult("""
+      fun `test line mode`[]() {
+        makeEditor("    test\n    three\n    lines")
+    
+        takeAction(AceAction.StartAllLineMarksMode())
+        "this line is sap'le de<caret>'du"
+        assertEquals([9, session.tags.size])
+      }
+    """)
+  }
+
+  fun `test regex mode`() {
+    val str = "arst rt {[rast ast ]} st "
+    val ret = Regex("\\[|\\]").findAll(str)
+    ret.forEach { println(it.range) }
   }
 
   fun `test chinese selection`() {

@@ -1,6 +1,8 @@
 package org.acejump.search
 
 import org.acejump.countMatchingCharacters
+import org.intellij.lang.annotations.RegExp
+import javax.annotation.RegEx
 
 /**
  * Defines the current search query for a session.

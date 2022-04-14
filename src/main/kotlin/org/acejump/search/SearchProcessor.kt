@@ -6,6 +6,7 @@ import org.acejump.boundaries.Boundaries
 import org.acejump.immutableText
 import org.acejump.isWordPart
 import org.acejump.matchesAt
+import org.intellij.lang.annotations.RegExp
 
 /**
  * Searches editor text for matches of a [SearchQuery], and updates
@@ -20,7 +21,7 @@ internal class SearchProcessor private constructor(
     fun fromChar(editors: List<Editor>, char: Char, boundaries: Boundaries) =
       SearchProcessor(editors, SearchQuery.Literal(char.toString()), boundaries)
 
-    fun fromRegex(editors: List<Editor>, pattern: String, boundaries: Boundaries) =
+    fun fromRegex(editors: List<Editor>, @RegExp pattern: String, boundaries: Boundaries) =
       SearchProcessor(editors, SearchQuery.RegularExpression(pattern), boundaries)
   }
   

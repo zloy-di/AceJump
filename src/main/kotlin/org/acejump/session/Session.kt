@@ -26,6 +26,7 @@ import org.acejump.search.Tagger
 import org.acejump.search.TaggingResult
 import org.acejump.view.TagCanvas
 import org.acejump.view.TextHighlighter
+import org.intellij.lang.annotations.RegExp
 import java.util.*
 
 /**
